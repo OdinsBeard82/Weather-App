@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather app</title>
+</head>
+<body>
+  <img src="#" alt="GIF will appear here">
+  <script>
+    const img = document.querySelector('img');
+    const apiKey = 'your_api_key_here';
+    const searchTerm = 'weather'; // Replace with the desired search term
+    fetch(`https://api.giphy.com/v1/gifs/translate?api_key=S41sxVmTMlHqGifZ135VvdKVLwYinzPE&s=Michael Jordan`)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(response) {
+        img.src = response.data.images.original.url;
+      });
+      
+    function refreshPage() {
+      location.reload();
+    }
+
+    function searchImage() {
+      const searchInput = document.getElementById('searchInput').value;
+      const apiUrl = `https://api.giphy.com/v1/gifs/translate?api_key=S41sxVmTMlHqGifZ135VvdKVLwYinzPE&s=${searchInput}`;
+
+      fetch(apiUrl)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(response) {
+          img.src = response.data.images.original.url;
+        })
+        .catch(function(error) {
+          console.log('Error fetching image:', error);
+        });
+    }
+  </script>
+   <button onclick="refreshPage()">New image</button>
+   <input type="text" id="searchInput" placeholder="Enter search term">
+   <button onclick="searchImage()">Search</button>
+   <img src="" id="fetch" />
+</body>
+</html>
